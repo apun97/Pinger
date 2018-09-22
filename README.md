@@ -2,7 +2,7 @@
 Java application that graphs the last few pings over a period of time using MVC model. Currently set at 10 seconds and the destination of www.google.com.
 
 ## Prerequisites
-Currently only supports MacOS
+Currently only supports MacOS and Windows
 Have a path to Java on your system
 
 ### Installation

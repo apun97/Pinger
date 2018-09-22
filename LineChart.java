@@ -14,7 +14,7 @@ public class LineChart extends ApplicationFrame{
 		JFreeChart lineChart = ChartFactory.createLineChart(chartTitle, "Seconds Elapsed","Ping (ms)", new DefaultCategoryDataset(), PlotOrientation.VERTICAL,true,true,false);
 		
 		ChartPanel chartPanel = new ChartPanel( lineChart );
-		chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
+		chartPanel.setPreferredSize( new java.awt.Dimension( 1080 , 720 ) );
 		setContentPane( chartPanel );
 		
 	}
@@ -28,7 +28,7 @@ public class LineChart extends ApplicationFrame{
 	public void paintAgain(LineChart chart, DefaultCategoryDataset dataset, String chartTitle) {
 		JFreeChart lineChart = ChartFactory.createLineChart(chartTitle, "Seconds Elapsed","Ping (ms)", dataset, PlotOrientation.VERTICAL,true,true,false);
 		ChartPanel chartPanel = new ChartPanel( lineChart );
-		chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
+		chartPanel.setPreferredSize( new java.awt.Dimension( 1080 , 720 ) );
 		chart.setContentPane( chartPanel );
 		chart.pack();
 		chart.repaint();

@@ -5,16 +5,19 @@ public class Ping {
 	
 	private int pinged;		//Keep track of how many times this has been pinged
 	private String ip;
+	private char os;	//m for mac, w for windows
 	
 	public Ping(String ip) {
 		this.pinged = 0;
 		this.ip = ip;
+		os = System.getProperty("os.name").toLowerCase().charAt(0);	
 		
 	}
 	
 	public Ping() {
 		this.pinged = 0;
 		this.ip = "google.com";		//google.com as default	
+		os = System.getProperty("os.name").toLowerCase().charAt(0);
 	}
 	
 	/**
@@ -28,10 +31,15 @@ public class Ping {
 		int ping = 0;
 		
 		try {
-			p = Runtime.getRuntime().exec("ping -c 1 " + ip);
+			if(os == 'm')
+				p = Runtime.getRuntime().exec("ping -c 1 " + ip);
+			else
+				p = Runtime.getRuntime().exec("ping -n 1 " + ip);
 			p.waitFor();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = reader.readLine(); //Disregard the first line
+			if(os == 'w')
+				reader.readLine();
 			line=reader.readLine();
 			
 			if(line.equals("ping: sendto: No route to host")) {
@@ -59,9 +67,17 @@ public class Ping {
 	 */
 	private int parsePing(String line) {
 		int indexOfTime = line.indexOf("time");
-		int indexOfDecimal = line.indexOf('.', indexOfTime);
+		int indexOfNum = indexOfTime + 5;
+		String pingString = "";
 		
-		String pingString = line.substring(indexOfTime + 5, indexOfDecimal);
+		if(os == 'w') {
+			int indexOfS = line.indexOf('s',indexOfTime);
+			pingString = line.substring(indexOfNum,indexOfS-1);
+		}
+		else {
+			int indexOfDecimal = line.indexOf('.', indexOfTime);
+			pingString = line.substring(indexOfNum, indexOfDecimal);
+		}
 		
 		return Integer.parseInt(pingString);
 	}
